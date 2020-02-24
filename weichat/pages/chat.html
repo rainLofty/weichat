@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<style>
+			@import url("../css/public.css");
+			.chat{width: 96%;margin:0 auto;background:none;}
+			.chat li{overflow: hidden;display: flex;margin:10px 0;}
+			.chat li>img{width: 34px;height: 34px;border-radius:5px;background:#fff;}
+			.chat .right{justify-content: flex-end;}
+			.chat p{margin:0 5px;color:#333;max-width: 60%;line-height:24px;padding:5px;border-radius:3px;}
+			.chat p img{width: 100%;}
+			.chat li p.img{background:none;}
+			.chat .left p{background:#fff;}
+			.chat .right p{background:#99ea71;}
+			.mui-scroll-wrapper{top:44px;bottom:50px;}
+			.show .mui-scroll-wrapper{bottom:280px;}
+			.bottomInput{background:#f8f8f8;width: 100%;display:flex;justify-content: space-around;align-items: center;box-sizing: border-box;border-top:1px solid #e9e9e9;}
+			.bottomInput>div{padding:8px 6px;}
+			.bottomInput .iconfont{font-size:24px;}
+			.bottomInput input{margin: 0;border:none;padding:0px 5px;height:34px;color:#333;}
+			.funArea{text-align: center;color:#999;font-size:12px;bottom:-230px;position: fixed;width: 100%;margin: 0;transition:.3s;}
+			.show .funArea{bottom:0;}
+			.funArea li{margin-bottom: 15px;}
+			.funArea a{display: block;width: 42px;height: 42px;background:#fff;border-radius:5px;line-height:42px;margin:0 auto;margin-bottom: 5px;}
+			.funArea .iconfont{color:#333;margin: 0;font-size:22px;}
+			.mui-slider-indicator .mui-active.mui-indicator{background:#7b7b7b ;}
+			.mui-slider-indicator .mui-indicator{background:#e1e1e1;box-shadow:none;}
+			.mui-slider{padding:32px 0;border-top:1px solid #e9e9e9;height: 230px;overflow:hidden;}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title"></h1>
+			<div class="mui-icon mui-pull-right">
+				<i class="iconfont icon-gengduo"></i>
+			</div>
+		</header>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="chat">
+						<li class="right"><p>你好</p><img src="../img/tx.jpg"></li>
+						<li class="left">
+							<!-- <img  src="../img/face1.png">	
+							<p>努力的人，披荆斩棘，伤痕累累也会艰难地走过去</p> -->
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="funArea">
+				<div class="bottomInput">
+					<div><i class="iconfont icon-yuyinqiehuan"></i></div>
+					<div class="mui-input-row">
+						<input type="text" class="inputText">
+					</div>
+					<div><i class="iconfont icon-biaoqing"></i></div>
+					<div class="toggleFun"><i class="iconfont icon-add"></i></div>
+				</div>
+				<div id="slider" class="mui-slider" >
+				  <div class="mui-slider-group">
+					<!-- 第一屏幕 -->
+					<div class="mui-slider-item">
+						<ul class="mui-row">
+							<li class="mui-col-xs-3 xiangce"><a class=""><i class="iconfont icon-xiangce"></i></a>相册</li>
+							<li class="mui-col-xs-3 xiangji"><a class=""><i class="iconfont icon-xiangji-tianchong"></i></a>拍摄</li>
+							<li class="mui-col-xs-3 shipin"><a class=""><i class="iconfont icon-shipin"></i></a>视频通话</li>
+							<li class="mui-col-xs-3 weizhi"><a class=""><i class="iconfont icon-weizhi"></i></a>位置</li>
+							<li class="mui-col-xs-3"><a class=""><i class="iconfont icon-hongbaomian"></i></a>红包</li>
+							<li class="mui-col-xs-3"><a class=""><i class="iconfont icon-zhuanzhang"></i></a>转账</li>
+							<li class="mui-col-xs-3"><a class=""><i class="iconfont icon-yuyin"></i></a>语音输入</li>
+							<li class="mui-col-xs-3"><a class=""><i class="iconfont icon-shoucang3"></i></a>我的收藏</li>
+						</ul>
+					</div>
+					<!-- 第二屏幕 -->
+					<div class="mui-slider-item">
+					  <ul class="mui-row">
+						<li class="mui-col-xs-3"><a class=""><i class="iconfont icon-wode-active"></i></a>名片</li>
+						<li class="mui-col-xs-3"><a class=""><i class="iconfont icon-wenjian"></i></a>文件</li>
+					  </ul>
+					</div>
+					
+				  </div>
+				  <div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</body>
+<script src="../js/mui.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script type="text/javascript">
+	mui.init();
+	var userid,username;
+	// mui('.mui-scroll-wrapper').scroll({
+	// 	scrollY: true, //是否竖向滚动
+	// 	indicators: true, //是否显示滚动条
+	// 	bounce: false //是否启用回弹
+	// });
+	var url = 'http://192.168.0.116/yima/weixin/';
+	var parentLi = document.querySelector('.chat .left');
+	mui.plusReady(function () {
+	    var cw = plus.webview.currentWebview();
+		userid = cw.userid;
+		username = cw.username;
+		$('.mui-title').html(username);
+		mui.post(url+'getchat.php',{id:userid},function(data){
+			console.log(data)
+			if(data.status==1){
+				data = data.result;
+				$('.mui-title').html(data.username);
+				if(data.message){
+					var newImg = document.createElement('img');
+					newImg.src = url+data.src;
+					var newP = document.createElement('p');
+					newP.innerHTML = data.message;
+					parentLi.appendChild(newImg);
+					parentLi.appendChild(newP);
+				}
+			}
+		},'json')
+		
+	})
+	mui('.bottomInput').on('tap','.toggleFun',function(){
+		$('.mui-content').toggleClass('show');
+		$('.inputText').blur();
+		mui('.mui-scroll-wrapper').scroll().reLayout();;
+		mui('.mui-scroll-wrapper').scroll().scrollToBottom(0);
+	})
+	$('.inputText').focus(function(){
+		$('.mui-content').removeClass('show');
+	})
+	mui('.mui-content').on('tap','.mui-scroll-wrapper',function(){
+		$('.mui-content').removeClass('show');
+		$('.inputText').blur();
+		//保证微信聊天内容总是显示在最底部
+		mui('.mui-scroll-wrapper').scroll().reLayout();;
+		mui('.mui-scroll-wrapper').scroll().scrollToBottom(0);
+	})
+	//添加键盘监听事件
+	document.onkeydown = function(e){
+		if(e.keyCode == 13){
+			var str = $('.inputText').val();
+			if(str){
+				$('.chat').append('<li class="right"><p>'+str+'</p><img src="../img/tx.jpg"></li>');	
+				$('.inputText').val('');
+				//保证微信聊天内容总是显示在最底部
+				mui('.mui-scroll-wrapper').scroll().reLayout();;
+				mui('.mui-scroll-wrapper').scroll().scrollToBottom(0);
+			}
+		}
+	}
+	//点击相册 xiangce
+	document.querySelector('.xiangce').addEventListener('tap',function(){
+		//调取手机相册
+		plus.gallery.pick(function(path){
+			console.log(path);
+			for(var i=0;i<path.files.length;i++){
+				console.log(path.files[i]);
+				$('.chat').append('<li class="right"><p class="img"><img src="'+path.files[i]+'"/></p><img src="../img/tx.jpg"></li>');
+			}
+			
+			mui('.mui-scroll-wrapper').scroll().reLayout();;
+			mui('.mui-scroll-wrapper').scroll().scrollToBottom(0);
+		},function(){
+			mui.toast('选区失败');
+		},{
+			filter:'image',
+			multiple:true,
+		});
+	})
+	//调用手机摄像头 xiangji
+	document.querySelector('.xiangji').addEventListener('tap',function(){
+		var cm = plus.camera.getCamera();//获取照相机对象
+		cm.captureImage(function(path){
+			//这里获取的path是一个相对路径，如果想要显示图片需要将path转换成绝对路径
+			path = "file://"+plus.io.convertLocalFileSystemURL(path);
+			$('.chat').append('<li class="right"><p class="img"><img src="'+path+'"/></p><img src="../img/tx.jpg"></li>');
+		},function(){
+			mui.toast('操作错误');
+		});//进行拍照操作
+		
+	})
+</script>
+</html>

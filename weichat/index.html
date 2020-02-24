@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="css/mine.css">
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<h1 class="mui-title">微信</h1>
+		<div class="mui-icon mui-pull-right headerIcon">
+			<i class="iconfont icon-sousuo"></i>
+			<i class="iconfont icon-add"></i>
+		</div>
+	</header>
+	<header class="mui-bar mui-bar-nav me">
+		<div class="mui-icon mui-pull-right headerIcon">
+			<i class="iconfont icon-xiangji-tianchong"></i>
+		</div>
+	</header>
+	<nav class="mui-bar mui-bar-tab">
+		<a class="mui-tab-item mui-active" href="sub1.html">
+			<span class="mui-icon iconfont icon-icon--1"></span>
+			<span class="mui-tab-label">微信</span>
+		</a>
+		<a class="mui-tab-item" href="sub2.html">
+			<span class="mui-icon iconfont icon-mn_tongxunlu"></span>
+			<span class="mui-tab-label">通讯录</span>
+		</a>
+		<a class="mui-tab-item" href="sub3.html">
+			<span class="mui-icon iconfont icon-im_faxian"></span>
+			<span class="mui-tab-label">发现</span>
+		</a>
+		<a class="mui-tab-item" href="sub4.html">
+			<span class="mui-icon iconfont icon-wode"></span>
+			<span class="mui-tab-label">我</span>
+		</a>
+	</nav>
+	<div class="mui-content">
+		
+	</div>
+	<script>
+		//4个子页面
+		var subPages = ['sub1.html','sub2.html','sub3.html','sub4.html'];
+		//子页面的打开方式
+		var subPagesStyle = {
+			top:'44px',
+			bottom:'50px',
+		}
+		//等待手机硬件系统准备完毕，类似document.ready
+		mui.plusReady(function () {
+		    //获取当前页面对应的webview窗体
+			var  self = plus.webview.currentWebview();
+			//给每一个html创建其对应的webview
+			for(var i=0;i<subPages.length;i++){
+				/*create参数：
+				* url(html页面名字)
+				* id:webview的id(和第一个参数一致即可)
+				* styles:webview的样式，即刚刚定义的subPagesStyle
+				*/
+				var sub = plus.webview.create(subPages[i],subPages[i],subPagesStyle);
+				sub.hide();//先把创建的webview隐藏，因为4个子页面只需要显示一个
+				self.append(sub);
+			}
+			//show参数：要显示的那个窗体ID
+			plus.webview.show(subPages[0]);//让第一个子页面显示
+		})
+		//点击tab选项栏切换webview
+		mui('.mui-bar-tab').on('tap','a',function(e){
+			//通过getAttribute获取事件源对应的href值
+			var tagPage = this.getAttribute('href');
+			var titleStr = this.querySelector('.mui-tab-label').innerHTML;
+			document.querySelector('.mui-title').innerHTML = titleStr;//修改标题内容
+			//使用show让对应的webview显示
+			/*show参数：
+			* id:webview的id值
+			* aniShow:页面显示的动画方式auto,fadeIn,none,pop-in,flip-x
+			* */
+			plus.webview.show(tagPage,'fadeIn');//让第一个子页面显示
+			var meSub = document.querySelector('.me');
+			if(tagPage == 'sub4.html'){
+				meSub.style.display = 'block';
+			}else{
+				meSub.style.display = 'none';
+			}
+		})
+	</script>
+</body>
+</html>

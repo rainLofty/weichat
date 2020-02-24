@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<style>
+			@import url("../css/public.css");
+			.mui-bar{background: #fff;}
+			.mui-content > .mui-table-view:first-child{margin-top: 0;}
+			.userinfo img{border-radius:5px;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title"></h1>
+			<div class="mui-icon mui-pull-right">
+				<a href="#sheet" id="openSheet"><i class="iconfont icon-gengduo"></i></a>
+			</div>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view userinfo">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left photo" src="../img/touxiang.png">
+						<div class="mui-media-body">
+							<h4>幸福</h4>
+							<p class="mui-ellipsis">微信号：<span class="weixin">weixinhao</span></p>
+							<p class="mui-ellipsis">地区：<span class="adress">河南 洛阳</span></p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">设置备注和标签</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">朋友权限</a>
+				</li>
+				<li class="mui-table-view-cell">
+					电话号码 <span class="phone"></span>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">朋友圈</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">更多信息</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view center">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right tochat"><i class="iconfont icon-icon--1"></i>发消息</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right"><i class="iconfont icon-shipin1"></i>音视频通话</a>
+				</li>
+			</ul>
+			<div id="sheet" class="mui-popover mui-popover-bottom mui-popover-action ">
+				<ul class="mui-table-view">
+				  <li class="mui-table-view-cell"><a href="#">设置备注和标签</a></li>
+				  <li class="mui-table-view-cell"><a href="#">把他推荐给朋友</a></li>
+				  <li class="mui-table-view-cell"><a href="#">设为星标朋友</a></li>
+				  <li class="mui-table-view-cell"><a href="#">朋友权限</a></li>
+				  <li class="mui-table-view-cell"><a href="#">加入黑名单</a></li>
+				  <li class="mui-table-view-cell"><a href="#">投诉</a></li>
+				  <li class="mui-table-view-cell"><a href="#">添加到桌面</a></li>
+				  <li class="mui-table-view-cell"><a href="#">删除</a></li>
+				</ul>
+				<ul class="mui-table-view">
+				  <li class="mui-table-view-cell">
+					<a href="#sheet"><b>取消</b></a>
+				  </li>
+				</ul>
+			</div>
+			
+			
+		</div>
+	</body>
+<script src="../js/mui.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script type="text/javascript">
+	mui.init();
+	var url = 'http://192.168.0.116/yima/weixin/';
+	var parentLi = document.querySelector('.chat .left');
+	mui.plusReady(function () {
+	    var cw = plus.webview.currentWebview();
+		
+		$('.photo').attr('src',url+cw.src);
+		$('.weixin').html(cw.weixin);
+		$('h4').html(cw.username);
+		$('.adress').html(cw.adress);
+		$('.phone').html(cw.phone);
+		$('.tochat').attr('href','chat.html?id='+cw.userid);
+
+		mui.post(url+'getcard.php',{id:cw.userid},function(data){
+			console.log(data)
+			if(data.status==1){
+				data = data.result;
+				$('.photo').attr('src',url+data.src);
+				$('.weixin').html(data.weixin);
+				$('h4').html(data.username);
+				$('.adress').html(data.adress);
+				$('.phone').html(data.phone);
+				$('.tochat').attr('href','chat.html?id='+data.id);
+			}
+		},'json')
+	})
+</script>
+</html>

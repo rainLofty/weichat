@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/mui.indexedlist.css">
+		<script src="js/mui.js"></script>
+		<style>
+			@import url("css/public.css");
+			.mui-content a p{
+				color:#b2b2b2;
+			}
+			.mui-table-view-cell img{
+				width: 42px;height: 42px;border-radius: 50%;margin-right: 10px;
+			}
+			.mui-table-view li{
+				line-height: 42px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div  id="list" class="mui-indexed-list">
+			<div class="mui-indexed-list-search mui-input-row mui-search">
+				<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索">
+			</div>
+			<div class="mui-indexed-list-bar">
+				<a>A</a><a>B</a><a>C</a><a>D</a><a>E</a><a>F</a><a>G</a><a>H</a><a>I</a><a>J</a><a>K</a><a>L</a><a>M</a><a>N</a><a>O</a><a>P</a><a>Q</a><a>R</a><a>S</a><a>T</a><a>U</a><a>V</a><a>W</a><a>X</a><a>Y</a><a>Z</a>
+			</div>
+			<div class="mui-indexed-list-alert"></div>
+			<div class="mui-indexed-list-inner">
+				<div class="mui-indexed-list-empty-alert">没有数据</div>
+				<ul class="mui-table-view">
+					<!-- <li data-group="A" class="mui-table-view-divider mui-indexed-list-group">A</li>
+					<li data-value="AKU" data-tags="AKeSu" class="mui-table-view-cell mui-indexed-list-item">
+						<img src="img/touxiang.png" class="mui-pull-left"/>阿克苏机场</li>
+					<li data-group="B" class="mui-table-view-divider mui-indexed-list-group">B</li>
+					<li data-value="BSD" data-tags="BaoShan" class="mui-table-view-cell mui-indexed-list-item">保山机场</li>
+					<li data-group="C" class="mui-table-view-divider mui-indexed-list-group">C</li> -->
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script src="js/mui.indexedlist.js"></script>
+	<script src="./js/jquery.min.js"></script>
+<script type="text/javascript">
+	mui.init();
+	var url = 'http://192.168.0.116/yima/weixin/';
+	var list = null;
+	mui.ready(function() {
+		list = document.getElementById('list');
+		var bodyHeight = window.innerHeight || document.documentElement.offsetHeight || document.body.offsetHeight;
+		list.style.height = bodyHeight+ 'px';
+		var maillist = JSON.parse(localStorage.getItem('maillist'));
+		initHtml(maillist);
+	});
+	mui.get(url+'maillist.php',function(data){
+		console.log(data);
+		if(data.status==1){
+			localStorage.setItem('maillist',JSON.stringify(data.result));
+			initHtml(data.result);
+		}
+	},'json');
+	function initHtml(data){
+		if(!data){
+			return;
+		}
+		$('.mui-table-view').empty();
+		for(var key in data){
+			var newLiGroup = $('<li data-group="'+key+'" class="mui-table-view-divider mui-indexed-list-group">'+key+'</li>');
+			var item = data[key];
+			if(item && item.length > 0){
+				$('.mui-table-view').append(newLiGroup);
+				for(var i=0;i<item.length;i++){
+					var key = key+i;
+					var newLiValue = $('<li data-value="'+key+'" data-tags="'+key+'" class="mui-table-view-cell mui-indexed-list-item"><a href="javascript:;" data-href="pages/card.html" data-userid="'+item[i].id+'" data-src="'+item[i].src+'" data-username="'+item[i].username+'" data-weixin="'+item[i].weixin+'" data-adress="'+item[i].adress+'" data-phone="'+item[i].phone+'"><img src="'+url+item[i].src+'" class="mui-pull-left"/>'+item[i].username+'</a></li>');
+					$('.mui-table-view').append(newLiValue);
+				}
+				
+			}
+		}
+		window.indexedList = new mui.IndexedList(list);
+	}
+	mui('.mui-table-view').on('tap','a',function(data){
+		data = this.dataset;
+		
+		mui.openWindow({
+			url:data.href,
+			id:data.href,
+			style:{},
+			show:{
+				autoShow:true,
+				aniShow:'slide-in-right',
+				duration:100,
+			},
+			extras:{
+				userid:data.userid,
+				src:data.src,
+				username:data.username,
+				weixin:data.weixin,
+				adress:data.adress,
+				phone:data.phone,
+			},
+			waiting:{
+				autoShow:true,
+				title:'正在加载......',
+			}
+		})
+	})
+</script>
+</html>

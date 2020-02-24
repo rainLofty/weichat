@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/mui.js"></script>
+		<style>
+			@import url("css/public.css");
+			
+			.pyq{color:#e05c5b;}
+			.saoyisao{color:#2168a6;}
+			.yaoyiyao{color:#2168a6;}
+			.kan{color:#f3c434;}
+			.souyisou{color:#e05c5b;}
+			.fujin{color:#2168a6;}
+			.gouwu{color:#e05c5b;}
+			.youxi{color:#1fab67;}
+			.xcx{color:#6c64b1;}
+		</style>
+		
+	</head>
+
+	<body>
+		<ul class="mui-table-view flexCenter">
+			<li class="mui-table-view-cell pengyouquan">
+				<a class="mui-navigate-right" href="javascript:;" data-href="pages/pengyouquan.html">
+					<i class="iconfont icon-pengyouquan1 pyq"></i>朋友圈
+				</a>
+			</li>
+		</ul>
+		<ul class="mui-table-view flexCenter">
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right">
+					<i class="iconfont icon-saoyisao saoyisao"></i>扫一扫
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right">
+					<i class="iconfont icon-yaoyiyao1 yaoyiyao"></i>摇一摇
+				</a>
+			</li>
+		</ul>
+		<ul class="mui-table-view flexCenter">
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right">
+					<i class="iconfont icon-ziyuan kan"></i>看一看
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right">
+					<i class="iconfont icon-souyisou souyisou"></i>搜一搜
+				</a>
+			</li>
+		</ul>
+		<ul class="mui-table-view flexCenter">
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right">
+					<i class="iconfont icon-fujinderen fujin"></i>附近的人
+				</a>
+			</li>
+		</ul>
+		<ul class="mui-table-view flexCenter">
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right">
+					<i class="iconfont icon-gouwu gouwu"></i>购物
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right">
+					<i class="iconfont icon-youxi youxi"></i>游戏
+				</a>
+			</li>
+		</ul>
+		<ul class="mui-table-view flexCenter">
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right ">
+					<i class="iconfont icon-xiaochengxu xcx"></i>小程序
+				</a>
+			</li>
+		</ul>
+	</body>
+	<script type="text/javascript">
+		mui.init();
+		mui('.pengyouquan').on('tap','a',function(data){
+			var href = this.dataset.href;
+			mui.openWindow({
+				url:href,
+				id:href,
+				show:{
+					autoShow:true,
+					aniShow:'slide-in-right',
+					duration:100,
+				},
+				waiting:{
+					autoShow:true,
+					title:'正在加载......',
+				}
+			})
+		})
+	</script>
+</html>

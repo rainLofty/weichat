@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<style>
+			@import url("../css/public.css");
+			body,.mui-content{background:#fff;}
+			.mui-bar {background:#cdcdcd;}
+			.mui-bar .mui-icon,.mui-bar .iconfont{color:#fff;}
+			.bgImg{height:160px;overflow: hidden;display: flex;align-items: center;}
+			.bgImg img{width: 100%;}
+			.tx{display: flex;justify-content: flex-end;width: 98%;margin-top:-30px;}
+			h5{color:#fff;text-shadow: 0 1px 0px #666;font-size:16px;}
+			.tx img{width: 45px;height: 45px;border-radius:5px;margin-left: 10px;}
+			.imgs img{width: 100%;display:block;}
+			.mui-row{margin:0 -2px;}
+			.imgs li{padding:2px;}
+			.mui-card{margin:10px 2px;}
+			.mui-card p{line-height:22px;}
+			.mui-card .mui-card-header>img{border-radius:5px;width: 42px;height: 42px;}
+			.mui-card{box-shadow: none;}
+			.mui-card-header.mui-card-media .mui-media-body{margin-left: 50px;}
+			.mui-card .footer{display:flex;justify-content: space-between;align-items: center;margin:8px 0 5px;}
+			.mui-card .footer span{font-size:13px;color:#bbb;}
+			.mui-card .footer .iconfont{color:#aaa;font-size:20px;}
+			.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			p img {
+				max-width: 100%;
+				height: auto;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="bgImg">
+					<img src="../img/bg.jpg" alt="">
+				</div>
+				<div class="tx">
+					<h5>A宜码计算机培训学校</h5>
+					<img src="../img/tx.jpg" alt="">
+				</div>
+				
+				<div class="mui-card">
+					<!-- 1 -->
+					<!-- <div class="mui-card-header mui-card-media">
+						<img src="../img/face37.png" />
+						<div class="mui-media-body">
+							昔梦<p>这些明星真的是太有气质了，爱了</p>
+							<div class="imgs">
+								<ul class="mui-row">
+									<li class="mui-col-xs-4"><img src="../photo/1.png"  data-preview-src="" data-preview-group="1"></li>
+									<li class="mui-col-xs-4"><img src="../photo/2.png"  data-preview-src="" data-preview-group="1"></li>
+								</ul>
+							</div>
+							<div class="footer">
+								<span>1小时前</span>
+								<i class="iconfont icon-gengduocaozuo"></i>
+							</div>
+						</div>
+					</div> -->
+					
+				</div>
+			</div>
+		</div>
+		
+	</body>
+<script src="../js/mui.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.previewimage.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script type="text/javascript">
+	mui.init({
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+				// style:'circle',
+				auto: true,
+				callback: pulldownRefresh //刷新
+			},
+			up: {
+				contentrefresh: '正在加载...', //加载
+				callback: pullupRefresh
+			}
+		}
+	});
+	var count = 0;
+	function pulldownRefresh() {//下拉刷新
+		count = 0;
+		mui('#pullrefresh').pullRefresh().refresh(true);
+		getData(count,'down');
+	}
+	function pullupRefresh() {//上拉加载
+		count++;
+		getData(count,'up');
+	}
+	mui.previewImage();
+	
+	var url = 'http://192.168.0.116/yima/weixin/';
+	var pengyouquan = JSON.parse(localStorage.getItem('pengyouquan'));
+	// initHtml(pengyouquan);
+	function getData(n,dire){
+		setTimeout(function(){
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); 
+		},2000)
+		mui.post(url+'pengyouquan.php',{n:n},function(data){
+			console.log(data);
+			if(data.status==1){
+				localStorage.setItem('pengyouquan',JSON.stringify(data.result));
+				if(n==0){
+					$('.mui-card').empty();
+				}
+				initHtml(data.result);
+				if(dire=='down'){
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); 
+				}else if(dire=='up'){
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(n==4); 
+				}
+				
+			}
+		},'json');
+	}
+	
+	function initHtml(data){
+		if(!data){
+			return;
+		}
+		for(var i=0;i<data.length;i++){
+			var newLi = '';
+			var item = data[i].imgs;
+		   if(item && item.length > 0 ){
+			   var classStr=  'mui-col-xs-4';
+			   if(item.length <=2){
+				   classStr = 'mui-col-xs-6';
+			   }
+				for(var j=0;j<item.length;j++){
+					newLi+='<li class="'+classStr+'"><img src="'+url+item[j]+'"  data-preview-src="" data-preview-group="'+data[i].id+'"></li>';
+				} 
+		   }
+		   
+			var newDiv = $('<div class="mui-card-header mui-card-media"><img src="'+url+data[i].src+'" /><div class="mui-media-body">'+data[i].username+'<p>'+data[i].content+'</p><div class="imgs"><ul class="mui-row">'+newLi+'</ul></div><div class="footer"><span>'+data[i].time+'</span><i class="iconfont icon-gengduocaozuo"></i></div></div></div>');
+			$('.mui-card').append(newDiv);
+		}
+	}
+</script>
+</html>

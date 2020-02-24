@@ -1,0 +1,21 @@
+@import url("../iconfont/iconfont.css");
+*{margin: 0;padding: 0;list-style: none;}
+.mui-bar .mui-title{left:10px;}
+.mui-table-view:before,.mui-table-view:after{background:#e2e2e2;}
+.mui-table-view-cell:after{background:#eaeaea;}
+.flexCenter .mui-table-view-cell .mui-navigate-right{
+	display: flex;
+	align-items: center;
+}
+.mui-table-view{margin-bottom: 10px;}
+.mui-table-view a,.mui-table-view{font-size:16px;}
+.mui-table-view .iconfont{font-size:20px;margin-right: 10px;}
+.headerIcon .iconfont{font-size:20px;margin-left: 20px;color:#333;}
+.mui-table-view-cell{padding:13px 15px;}
+.mui-bar .mui-icon{color:#333;}
+.mui-bar a,.mui-table-view .mui-table-view-cell a{color:#333;}
+.mui-table-view.center{text-align: center;}
+.mui-table-view.center a:after{content: '';}
+.mui-bar-nav{box-shadow: none;}
+.mui-card-header:after, .mui-card-footer:before{background: #e2e2e2;}
+#openSheet .iconfont{font-size:20px;}

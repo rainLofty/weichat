@@ -1,0 +1,30 @@
+@import url("public.css");
+body{
+	color:#191919;
+}
+
+.mui-bar{
+	background:#ededed;
+}
+.mui-title{
+	text-align: left;
+}
+.mui-bar-tab .mui-tab-item{
+	color:#000;
+}
+.mui-bar-tab .mui-tab-item.mui-active{
+	color:#24db5a;
+}
+.mui-bar-tab .mui-tab-item.mui-active .iconfont{
+	color:#24db5a;
+}
+.mui-bar{
+	background:#f7f7f7;
+}
+.mui-content{
+	background:#ededed;
+}
+.me{
+	display: none;
+	background:#fff;
+}

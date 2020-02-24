@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<style>
+			@import url("css/public.css");
+			.mui-content a p{
+				color:#b2b2b2;
+			}
+			.mui-table-view-cell img{
+				border-radius:5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul class="mui-table-view">
+					<!-- <li class="mui-table-view-cell mui-media">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-left" src="img/face0.png">
+							<div class="mui-media-body">
+								初语
+								<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+							</div>
+						</a>
+					</li> -->
+				</ul>
+			</div>
+		</div>
+		
+	</body>
+	<script src="js/mui.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script>
+		mui.init();
+		var url = 'http://192.168.0.116/yima/weixin/';
+		mui('.mui-scroll-wrapper').scroll({
+			scrollY: true, //是否竖向滚动
+			indicators: false, //是否显示滚动条
+			bounce: false //是否启用回弹
+		});
+		var charList = JSON.parse(localStorage.getItem('chatlist'));
+		initHtml(charList);
+		mui.get(url+'chatlist.php',function(data){
+			console.log(data)
+			if(data.status==1){
+				localStorage.setItem('chatlist',JSON.stringify(data.result));
+				initHtml(data.result);
+			}
+		},'json');
+		function initHtml(data){
+			if(!data){
+				return;
+			}
+			$('.mui-table-view').empty();
+			for(var i=0;i<data.length;i++){
+				var newLi = $('<li class="mui-table-view-cell mui-media"><a href="javascript:;" data-href="pages/chat.html" data-userid="'+data[i].id+'" data-username="'+data[i].username+'"><img class="mui-media-object mui-pull-left" src="'+url+data[i].src+'"><div class="mui-media-body">'+data[i].username+'<p class="mui-ellipsis">'+data[i].message+'</p></div></a></li>');
+			$('.mui-table-view').append(newLi);
+			}
+		}
+		mui('.mui-table-view').on('tap','a',function(data){
+			data = this.dataset;
+			mui.openWindow({
+				url:data.href,
+				id:data.href,
+				show:{
+					autoShow:true,
+					aniShow:'slide-in-right',
+					duration:100,
+				},
+				extras:{
+					username:data.username,
+					userid:data.userid,
+				},
+				waiting:{
+					autoShow:true,
+					title:'正在加载......',
+					options:{
+						// width:,
+						// height:,
+					}
+				}
+			})
+		})
+	</script>
+</html>
